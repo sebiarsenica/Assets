@@ -1,0 +1,69 @@
+.container-separator {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.button-container{
+    margin-top: 1vw;
+}  
+
+/*Table css region */
+.table-container{
+    margin-top: 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table{
+    width: fit-content;
+    align-self: center;
+    width: 80vw;
+    font-size: large;
+}
+
+.table-row{
+    transition: all 0.5s ease-in-out;
+}
+
+.table-row:hover{
+    scale: 101%;
+}
+
+.selected{ 
+    background-color: orange;
+    
+}
+
+/*End of table css region*/
+
+/*Button css region */  
+.button-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items:flex-end; 
+    margin-right: 2vw;
+}
+
+.btn.btn-primary{
+    background-color: orange;
+    color: black;
+    margin-left: 1vw;
+    font-size: medium;
+    width: 7vw;
+    height: 3vw;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn.btn-primary:hover{ 
+    scale:110%;
+    background-color: rgb(112, 81, 24);
+    color: white;
+}
+
+.btn.btn-primary:disabled{ 
+    background-color: transparent;
+}
+
+/*End of button css region*/

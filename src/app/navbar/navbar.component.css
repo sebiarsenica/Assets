@@ -1,0 +1,11 @@
+.navbar-brand{
+  margin-left: 5vw;
+}
+
+.navbar.navbar-collapse{ 
+  display : flex;
+}
+
+.nav-item.end{
+  margin-left: auto !important;
+}
