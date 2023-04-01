@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserDto } from '../models/userDto';
-import { UserService } from '../services/user.service';
-import { AuthServiceService } from '../services/auth-service.service';
+import { UserDto } from '../../models/userDto';
+import { UserService } from '../../services/user.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 import Swal from 'sweetalert2';
 
 

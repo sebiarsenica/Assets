@@ -5,13 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { MainpageComponent } from './mainpage/mainpage.component';
+import { LoginComponent } from './components/login/login.component';
+import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { CookieService } from 'ngx-cookie-service';
-import { NavbarComponent } from './navbar/navbar.component';
-import { UsersComponent } from './users/users.component';
-import { AddUserModalComponent } from './modals/add-user-modal/add-user-modal.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { UsersComponent } from './components/users/users.component';
+import { AddUserModalComponent } from './modals/add-user/add-user.component';
 import { EditUserComponent } from './modals/edit-user/edit-user.component';
+import { AnimatedBackgroundComponent } from './components/animated-background/animated-background.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { EditUserComponent } from './modals/edit-user/edit-user.component';
     NavbarComponent,
     UsersComponent,
     AddUserModalComponent,
-    EditUserComponent
+    EditUserComponent,
+    AnimatedBackgroundComponent
   ],
   imports: [
     BrowserModule,

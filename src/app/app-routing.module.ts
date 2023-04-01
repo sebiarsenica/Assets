@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { MainpageComponent } from './mainpage/mainpage.component';
+import { LoginComponent } from './components/login/login.component';
+import { MainpageComponent } from './components/mainpage/mainpage.component';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './users/users.component';
-import { AddUserModalComponent } from './modals/add-user-modal/add-user-modal.component';
+import { UsersComponent } from './components/users/users.component';
+import { AddUserModalComponent } from './modals/add-user/add-user.component';
 import { EditUserComponent } from './modals/edit-user/edit-user.component';
 
 const routes: Routes = [

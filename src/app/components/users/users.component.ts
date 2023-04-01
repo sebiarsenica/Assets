@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { User } from '../models/user';
-import { UserService } from '../services/user.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-users',

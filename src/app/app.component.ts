@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from './services/auth-service.service';
-import { UsersComponent } from './users/users.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 @Component({

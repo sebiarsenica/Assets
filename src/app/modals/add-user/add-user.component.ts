@@ -7,8 +7,8 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-user-modal',
-  templateUrl: './add-user-modal.component.html',
-  styleUrls: ['./add-user-modal.component.css']
+  templateUrl: './add-user.component.html',
+  styleUrls: ['./add-user.component.css']
 })
 export class AddUserModalComponent implements OnInit {
 
