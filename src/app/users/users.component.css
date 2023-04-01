@@ -1,16 +1,32 @@
 .container-separator {
     display: flex;
     flex-direction: column;
-    
 }
 
 .button-container{
     margin-top: 1vw;
 }  
 
+/*Search Bar Css*/
+
+.searchBar-container{
+    display:flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    
+}
+
+.input-group{
+    width: 20vw;
+    margin-top: 2vw;
+    margin-right: 9.9vw;
+}
+
+/*End of Search Bar Css*/
+
 /*Table css region */
 .table-container{
-    margin-top: 5vw;
+    margin-top: 0.5vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,6 +51,7 @@
     background-color: orange;
     
 }
+
 
 /*End of table css region*/
 
@@ -67,3 +84,5 @@
 }
 
 /*End of button css region*/
+
+

@@ -28,7 +28,9 @@ export class AddUserModalComponent implements OnInit {
           icon: 'success',
           title: 'Cont adaugat cu succes!',
           showConfirmButton: false,
-          timer: 1500
+          timer: 900,
+          background: '#f8f9fa',
+          backdrop: 'transparent'
         })
       }, 
       (error) => {

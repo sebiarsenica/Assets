@@ -4,14 +4,40 @@
         <button class = "btn btn-primary" [disabled]="returnSelectedUsersCount() != 1" (click)="editUser()">Edit <i class="fa-solid fa-user-pen"></i></button>
         <button class = "btn btn-primary" [disabled]="returnSelectedUsersCount() == 0" (click) = "deleteUser()">Delete <i class="fa-solid fa-user-slash"></i></button>
       </div>
+    <div class="searchBar-container">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filter" (input) = "applyFilter()">
+        
+    </div>
+    </div>  
     <div class="table-container">
     <table class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Full Name</th>
-        <th>Email</th>
+        <th>ID <a (click) = "sortUserList('id')">
+           <i class="fa fa-sort"
+            [class.fa-sort-asc]="sortOrderId === 'asc'"
+            [class.fa-sort-desc]="sortOrderId === 'desc'"
+            [class.fa-sort]="sortOrderId === ''"></i>
+        </a></th>
+        <th>Username  <a (click) = "sortUserList('username')">
+          <i class="fa fa-sort"
+           [class.fa-sort-asc]="sortOrderUsername === 'asc'"
+           [class.fa-sort-desc]="sortOrderUsername === 'desc'"
+           [class.fa-sort]="sortOrderUsername === ''"></i>
+       </a></th>
+        <th>Full Name  <a (click) = "sortUserList('fullname')">
+          <i class="fa fa-sort"
+           [class.fa-sort-asc]="sortOrderFullName === 'asc'"
+           [class.fa-sort-desc]="sortOrderFullName === 'desc'"
+           [class.fa-sort]="sortOrderFullName === ''"></i>
+       </a></th>
+        <th>Email  <a (click) = "sortUserList('email')"> 
+          <i class="fa fa-sort"
+           [class.fa-sort-asc]="sortOrderEmail === 'asc'"
+           [class.fa-sort-desc]="sortOrderEmail === 'desc'"
+           [class.fa-sort]="sortOrderEmail === ''"></i>
+       </a></th>
         <th>Create Date</th>
       </tr>
     </thead>

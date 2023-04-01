@@ -28,5 +28,9 @@ export class UserService {
   public deleteUser(id : number):Observable<User[]>{ 
     return this.http.delete<User[]>(environment.apiUrl + '/' + this.url + '/'+id);
   }
+
+  public editUser(user: UserDto, id: any):Observable<boolean>{
+    return this.http.put<boolean>(environment.apiUrl+'/'+this.url+'/'+id, user);
+  }
   
 }

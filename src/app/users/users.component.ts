@@ -10,8 +10,14 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  users: User[] = [];
+  users: any[] = [];
+  unsortedUsers : User[] = [];
   selectedUsers: any[] = [];
+  filter: string = '';
+  sortOrderId : string = "";
+  sortOrderUsername: string = ""; 
+  sortOrderFullName : string = ""; 
+  sortOrderEmail : string = "";
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -39,8 +45,8 @@ export class UsersComponent implements OnInit {
   getAllUsers(){ 
    this.userService.getUsers().subscribe(
     (response)=>{
-     
      this.users = response;
+     this.unsortedUsers = response;
      this.formatUserCreateDate();
     },
     (error) => { 
@@ -51,13 +57,24 @@ export class UsersComponent implements OnInit {
     }
    )
   }
-
-  deleteUser(){
+ deleteUser(){
+    let nr = 0; 
+    console.log("intra aici");
     for(var i = 0 ; i < this.selectedUsers.length; i++)
     this.userService.deleteUser(this.selectedUsers[i].id).subscribe(
       (response)=>{
         this.users = response; 
-        this.formatUserCreateDate();
+         nr++;
+        if(nr === this.selectedUsers.length-1) {
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Conturile au fost sterse cu succes!',
+            showConfirmButton: false,
+            timer: 900
+          })
+           this.selectedUsers.splice(0, this.selectedUsers.length);
+          }
       }, 
       (error)=>{
         console.log(error); 
@@ -68,13 +85,14 @@ export class UsersComponent implements OnInit {
       }
     )
 
-    this.selectedUsers.splice(0, this.selectedUsers.length);
+
+   
   }
 
   formatUserCreateDate() { 
     for (let user of this.users) {
       const createDate = user.createDate;
-      if (createDate) {
+      if (createDate && createDate instanceof Date) { // Check if createDate is a valid Date object
         const formattedCreateDate = createDate.toLocaleDateString();
         const newCreateDate = new Date(formattedCreateDate);
         user.createDate = newCreateDate;
@@ -101,6 +119,85 @@ returnSelectedUsersCount() : number {
   return this.selectedUsers.length;
 }
   
+applyFilter():void{
+  let filterValue = this.filter.toLowerCase();
 
+  if(filterValue === "") 
+  {this.users = this.unsortedUsers;
+  return;}
+
+  this.users = this.users.filter((user)=>{
+    return(
+      user.id?.toString().includes(filterValue)||
+      user.username?.toLowerCase().includes(filterValue)||
+      user.fullName?.toLowerCase().includes(filterValue)||
+      user.email?.toLowerCase().includes(filterValue)||
+      user.createDate?.toString().includes(filterValue)
+    );
+  });
+}
+
+sortUserList(field: string): void {
+  this.users.sort((a, b) => {
+    if (a[field] < b[field]) {
+      return -1;
+    }
+    if (a[field] > b[field]) {
+      return 1;
+    }
+    return 0;
+  });
+
+  // Toggle sort order for id
+  if(field === "id"){
+  if (this.sortOrderId === 'asc') {
+    this.sortOrderId = 'desc';
+    this.users.reverse();  
+  } else {
+    this.sortOrderId = 'asc';
+    this.sortOrderUsername = "";
+    this.sortOrderFullName = "";
+    this.sortOrderEmail = "";
+  }
+}
+
+  if(field === "username"){
+  if (  this.sortOrderUsername === 'asc') {
+    this.sortOrderUsername = 'desc';
+    this.users.reverse();
+  } else {
+    this.sortOrderUsername = 'asc';
+    this.sortOrderId = "";
+    this.sortOrderFullName = "";
+    this.sortOrderEmail = "";
+  }
+}
+
+if(field === 'fullname'){
+  if (  this.sortOrderFullName=== 'asc') {
+    this.sortOrderFullName = 'desc';
+    this.users.reverse();
+  } else {
+    this.sortOrderFullName = 'asc';
+    this.sortOrderId = "";
+    this.sortOrderUsername = "";
+    this.sortOrderEmail = "";
+  }
+}
+
+if(field === 'email'){
+  if (  this.sortOrderEmail== 'asc') {
+    this.sortOrderEmail = 'desc';
+    this.users.reverse();
+  } else {
+    this.sortOrderEmail = 'asc';
+    this.sortOrderId = "";
+    this.sortOrderUsername = "";
+    this.sortOrderFullName = "";
+  }
+}
+
+
+}
 
 }

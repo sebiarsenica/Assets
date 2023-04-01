@@ -1,16 +1,58 @@
 .container{
     display:flex; 
     flex-direction: row;
-    margin-top: 7vw;
+    margin-top: 2vw;
 }
 
 .containerOne{ 
-  background-color: blue;
   flex: 1;
   margin-right: 5vw;
 }
 
 .containerTwo{
-    background-color: black;
-    flex: 1;
+   flex: 1;
+   margin-top: 1vw;;
+}
+
+.form-group.rest{ 
+  margin-top: 1vw;
+}
+
+.submit{ 
+margin-top: 2vw;
+width: 20vw;
+
+transition: 0.5s all ease-in-out;
+background-color: orange;
+color: black;
+}
+
+.submit:hover{
+  position: relative;
+  background-color: rgb(112, 81, 24);
+  color: white;
+}
+
+
+.form-control {
+  border-bottom: 2px solid #333;
+  background-color: transparent;
+  padding: 5px;
+  font-size: 1.2rem;
+  color: #333;
+  transition: all 1s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-bottom: 2px solid #e92929;
+  box-shadow: 0 0 5px rgba(233, 41, 41, 0.5);
+  transition: all .5s;
+}
+
+.form-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
