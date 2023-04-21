@@ -1,13 +1,12 @@
 <div class="container-separator">
     <div class="button-container">
-        <button class = "btn btn-primary"  (click) = "addUser()">Add <i class="fa-solid fa-user-plus"></i></button>
-        <button class = "btn btn-primary" [disabled]="returnSelectedUsersCount() != 1" (click)="editUser()">Edit <i class="fa-solid fa-user-pen"></i></button>
-        <button class = "btn btn-primary" [disabled]="returnSelectedUsersCount() == 0" (click) = "deleteUser()">Delete <i class="fa-solid fa-user-slash"></i></button>
+        <button class = "btn btn-primary" *ngIf="userRoles.includes('CanAddUser')" (click) = "addUser()">Add <i class="fa-solid fa-user-plus"></i></button>
+        <button class = "btn btn-primary" *ngIf="userRoles.includes('CanEditUser')" [disabled]="returnSelectedUsersCount() != 1" (click)="editUser()">Edit <i class="fa-solid fa-user-pen"></i></button>
+        <button class = "btn btn-primary" *ngIf="userRoles.includes('CanDeleteUser')" [disabled]="returnSelectedUsersCount() == 0" (click) = "deleteUser()">Delete <i class="fa-solid fa-user-slash"></i></button>
       </div>
     <div class="searchBar-container">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filter" (input) = "applyFilter()">
-        
     </div>
     </div>  
     <div class="table-container">

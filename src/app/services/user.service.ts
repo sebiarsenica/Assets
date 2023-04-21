@@ -17,6 +17,10 @@ export class UserService {
     return this.http.get<User[]>(environment.apiUrl+'/'+this.url+'/getAll');
   }
 
+  public getUserByUserName(username: string): Observable<User>{
+    return this.http.get<User>(environment.apiUrl+'/'+this.url+'/'+username);
+  }
+
   public registerUser(user: UserDto): Observable<User[]>{
     return this.http.post<User[]>(environment.apiUrl+'/'+this.url+'/register', user);
   }

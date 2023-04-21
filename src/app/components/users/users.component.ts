@@ -3,6 +3,8 @@ import { NavigationExtras, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { assignedRole } from 'src/app/models/assignedRole';
 
 @Component({
   selector: 'app-users',
@@ -10,6 +12,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  userRoles : string = "";
   users: any[] = [];
   unsortedUsers : User[] = [];
   selectedUsers: any[] = [];
@@ -19,12 +22,13 @@ export class UsersComponent implements OnInit {
   sortOrderFullName : string = ""; 
   sortOrderEmail : string = "";
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private authService: AuthServiceService) { }
 
   ngOnInit(): void {
     this.getAllUsers();
-    
-  }
+    this.userRoles = this.authService.getRoles();
+    console.log(this.userRoles);
+    }
 
   //Routing
   addUser(){ 
@@ -34,7 +38,8 @@ export class UsersComponent implements OnInit {
   editUser(){
     let navigationsExtras: NavigationExtras = { 
       state: { 
-        user: this.selectedUsers
+        user: this.selectedUsers,
+        userRoles: this.userRoles
       }
     };
     this.router.navigate(['/editUser'], navigationsExtras);
@@ -53,7 +58,8 @@ export class UsersComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'Error loading the users',
-       })
+       });
+       console.log(error);
     }
    )
   }

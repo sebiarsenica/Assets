@@ -56,3 +56,9 @@ color: black;
   color: #333;
   margin-bottom: 0.5rem;
 }
+
+/*Roles css*/
+.selected{
+  background-color: orange;
+}
+/*End of Roles css*/
