@@ -13,6 +13,9 @@ import { UsersComponent } from './components/users/users.component';
 import { AddUserModalComponent } from './modals/add-user/add-user.component';
 import { EditUserComponent } from './modals/edit-user/edit-user.component';
 import { AnimatedBackgroundComponent } from './components/animated-background/animated-background.component';
+import { AssetsComponent } from './components/assets/assets.component';
+import { AddAssetComponent } from './modals/add-asset/add-asset.component';
+import { EditAssetComponent } from './modals/edit-asset/edit-asset.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { AnimatedBackgroundComponent } from './components/animated-background/an
     UsersComponent,
     AddUserModalComponent,
     EditUserComponent,
-    AnimatedBackgroundComponent
+    AnimatedBackgroundComponent,
+    AssetsComponent,
+    AddAssetComponent,
+    EditAssetComponent
   ],
   imports: [
     BrowserModule,

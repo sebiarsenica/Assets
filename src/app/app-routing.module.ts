@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { UsersComponent } from './components/users/users.component';
 import { AddUserModalComponent } from './modals/add-user/add-user.component';
 import { EditUserComponent } from './modals/edit-user/edit-user.component';
+import { AssetsComponent } from './components/assets/assets.component';
+import { AddAssetComponent } from './modals/add-asset/add-asset.component';
+import { EditAssetComponent } from './modals/edit-asset/edit-asset.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -13,6 +16,9 @@ const routes: Routes = [
   {path: 'users', component: UsersComponent},
   {path: 'addUser', component: AddUserModalComponent},
   {path: 'editUser', component: EditUserComponent},
+  {path: 'assets', component: AssetsComponent},
+  {path: 'addAsset', component: AddAssetComponent},
+  {path: 'editAsset', component: EditAssetComponent},
   {path: '', redirectTo: 'AppComponent', pathMatch: 'full'}
 ];
 

@@ -113,9 +113,7 @@ export class UsersComponent implements OnInit {
     } else {
         this.selectedUsers.push(user);
     }
-
-    
-}
+  }
 
 isSelected(user: any){
       return this.selectedUsers.indexOf(user) >= 0;

@@ -50,6 +50,10 @@ export class AuthServiceService {
   
   }
 
+  getUserNameFromCookie():string{
+    return this.cookieService.get('username');
+  }
+
   getRolesForUser():void{
   this.assignRoleService.getAssignedRolesForUser(this.user.id).subscribe(
     (response)=>{

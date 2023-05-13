@@ -1,0 +1,92 @@
+<div class="button-container">
+  <button class = "btn btn-primary"  (click) = "addAsset()" style="min-width: 100px;min-height: 35px;">Add <i class="fas fa-memory"></i></button>
+  <button class = "btn btn-primary" [disabled]="returnSelectedAssetsCount() != 1"  (click)="editAsset()" style="min-width: 100px;min-height: 35px;">Edit <i class="fa-solid fa-computer"></i></button>
+  <button class = "btn btn-primary" [disabled]="returnSelectedAssetsCount() ==  0 " (click)="deleteAsset()" style="min-width: 100px;min-height: 35px;"> Delete <i class="fas fa-trash"></i> </button>
+</div>
+
+<div class="container">
+ 
+  <div class="containerOne">
+    <input type="text" class="form-control" placeholder="Search..." style="width: 150px;" [(ngModel)]="searchString" (input)="applySearch()">
+    <select [(ngModel)]="selectedAddedBy" class = "form-select filter">
+      <option value="">Added By</option>
+      <option *ngFor="let addedBy of addedByList" [value]="addedBy">{{addedBy}}</option>
+    </select>
+    <select [(ngModel)]="selectedCategory" class = "form-select filter">
+      <option value="">Category</option>
+      <option *ngFor="let category of categoryList" [value]="category">{{category}}</option>
+    </select>
+    <button class="btn btn-primary filter" (click)="applyFilters()">Apply Filters</button>
+    <button class="btn btn-primary filter" style="margin-top: 0.5vw;" (click)="clearFilters()">Clear Filters</button>
+ </div>
+
+<div class="containerTwo">
+  <div class="row">
+    <div class="col-md-6 d-flex align-items-center">
+      <select [(ngModel)]="pageSize" (change)="onPageSizeChange()" class="form-select" style="width: auto;">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+   
+  </div>
+  
+  <!-- Table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID <a (click) = "sortAssetList('id')">
+          <i class="fa fa-sort"
+            [class.fa-sort-asc]="sortOrderId === 'asc'"
+            [class.fa-sort-desc]="sortOrderId === 'desc'"
+            [class.fa-sort]="sortOrderId === ''"></i>
+        </a></th>
+        <th>Name <a (click) = "sortAssetList('name')">
+          <i class="fa fa-sort"
+            [class.fa-sort-asc]="sortOrderName === 'asc'"
+            [class.fa-sort-desc]="sortOrderName === 'desc'"
+            [class.fa-sort]="sortOrderName === ''"></i>
+        </a></th>
+        <th>SKU <a (click) = "sortAssetList('sku')">
+          <i class="fa fa-sort"
+            [class.fa-sort-asc]="sortOrderSKU === 'asc'"
+            [class.fa-sort-desc]="sortOrderSKU === 'desc'"
+            [class.fa-sort]="sortOrderSKU === ''"></i>
+        </a></th>
+        <th>Category <a (click) = "sortAssetList('category')">
+          <i class="fa fa-sort"
+            [class.fa-sort-asc]="sortOrderCategory === 'asc'"
+            [class.fa-sort-desc]="sortOrderCategory === 'desc'"
+            [class.fa-sort]="sortOrderCategory === ''"></i>
+        </a></th>
+        <th>Quantity <a (click) = "sortAssetList('quantity')">
+          <i class="fa fa-sort"
+            [class.fa-sort-asc]="sortOrderQuantity === 'asc'"
+            [class.fa-sort-desc]="sortOrderQuantity === 'desc'"
+            [class.fa-sort]="sortOrderQuantity === ''"></i>
+        </a></th>
+        <th>Added By <a (click) = "sortAssetList('addedBy')">
+          <i class="fa fa-sort"
+            [class.fa-sort-asc]="sortOrderAddedby === 'asc'"
+            [class.fa-sort-desc]="sortOrderAddedby === 'desc'"
+            [class.fa-sort]="sortOrderAddedby === ''"></i>
+        </a></th>
+       </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asset of getPaginatedData()" class="table-row" [class.selected]="isSelected(asset)" (click)="onSelect(asset)">
+        <td>{{asset.id}}</td>
+        <td><img [src]="sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + asset.image)" width="40px" height="40px" />    {{asset.name}}</td>
+        <td>{{asset.sku}}</td>
+        <td>{{asset.category}}</td>
+        <td>{{asset.quantity}}</td>
+        <td>{{asset.addedBy}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-primary" style="height: 35px;"  [disabled]="page == 1" (click)="page = page - 1">Previous</button>
+<button class="btn btn-primary" style="height: 35px;" [disabled]="page == totalPages" (click)="page = page + 1">Next</button>
+
+</div>
+</div>

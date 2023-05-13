@@ -9,15 +9,14 @@
 .submit{ 
  margin-top: 2vw;
  width: 20vw;
- 
  transition: 0.5s all ease-in-out;
- background-color: orange;
+ background-color: rgb(255, 217, 90);
  color: black;
 }
 
 .submit:hover{
     position: relative;
-    background-color: rgb(112, 81, 24);
+    background-color: rgb(192, 127, 0);
     color: white;
 }
   
@@ -45,5 +44,7 @@
     color: #333;
     margin-bottom: 0.5rem;
   }
+  
+  
   
   

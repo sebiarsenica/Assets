@@ -48,7 +48,7 @@
 }
 
 .selected{ 
-    background-color: orange;
+    background-color: rgb(255, 217, 90);
 }
 
 
@@ -63,7 +63,7 @@
 }
 
 .btn.btn-primary{
-    background-color: orange;
+    background-color: rgb(255, 217, 90);
     color: black;
     margin-left: 1vw;
     font-size: medium;
@@ -74,7 +74,7 @@
 
 .btn.btn-primary:hover{ 
     scale:110%;
-    background-color: rgb(112, 81, 24);
+    background-color: rgb(192, 127, 0);
     color: white;
 }
 
