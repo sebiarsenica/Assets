@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { NavigationExtras, Router } from '@angular/router';
 import { asset } from 'src/app/models/asset';
+import { assignedAssetDTO } from 'src/app/models/assignedAssetDTO';
+import { User } from 'src/app/models/user';
 import { AssetService } from 'src/app/services/asset.service';
+import { AssignedAssetService } from 'src/app/services/assigned-asset.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,6 +15,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./assets.component.css']
 })
 export class AssetsComponent implements OnInit {
+  currentUser: User = new User();
+
   assets: any[] = [];
   unsortedAssets: any[] = [];
   selectedAssets: asset[] = [];
@@ -33,25 +39,61 @@ export class AssetsComponent implements OnInit {
 
   searchString: string = "";
 
-  constructor(private assetService : AssetService, public sanitizer: DomSanitizer, private router: Router) { }
+  isLoaded: boolean = false;
+
+  requestButtonText : string = "Request ";
+  requestButtonClass: string = "fa-solid fa-code-pull-request";
+
+  constructor(private assetService : AssetService, public sanitizer: DomSanitizer, private router: Router, private authService: AuthServiceService,
+    private assignAssetService : AssignedAssetService) { }
 
   ngOnInit(): void {
+    this.showLoadingAlert();
     this.getAllAssets();
+    this.currentUser = this.authService.user;
+  }
+
+  onRequestButtonHover()
+  {
+    this.requestButtonClass = "fa-solid fa-code-pull-request fa-beat";
+  }
+
+  onRequestButtonLeave()
+  {
+    this.requestButtonClass = "fa-solid fa-code-pull-request";
   }
 
   getAllAssets(): void{
    this.assetService.getAll().subscribe(
     (response)=>{ 
       console.log(response);
-      this.assets = response;
+      this.assets = response; 
       this.unsortedAssets = response;
       this.populateFilters();
       this.imageDataUrl = this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + this.assets[0].image);
+      Swal.close();
     },
     (error)=>{
       console.log(error);
     }
    )
+  }
+
+  showLoadingAlert() {
+    Swal.fire({
+      title: 'Loading...',
+      html: '',
+      customClass: {
+        container: 'sweet-container',
+        popup: 'sweet-popup',
+        title: 'sweet-title',
+      },
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      showCancelButton: false,
+    });
+    
   }
 
   addAsset():void{
@@ -106,27 +148,71 @@ export class AssetsComponent implements OnInit {
         (error)=>{
           console.log(error);
         }
-      )
+      );
     } else {
       // The formValues object is undefined or doesn't have 'name' and 'quantity' properties
     }
   }
 
   deleteAsset():void{
-  this.selectedAssets.forEach((as)=>{
-   this.assetService.deleteAsset(as.id!).subscribe(
+    Swal.fire({
+      title: 'Are you sure you want to delete?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.selectedAssets.forEach((as)=>{
+          this.assetService.deleteAsset(as.id!).subscribe(
+             (response)=>{
+               console.log(response);
+               this.assets = response;
+             },
+             (error)=>{
+               console.log(error);
+             }
+          );
+         });
+         this.selectedAssets.splice(0, this.selectedAssets.length);
+         this.onPageSizeChange();
+        Swal.fire('Deleted!', '', 'success')
+      } else if (result.isDenied) {
+        
+      }
+    })
+    
+  
+
+  
+  }
+
+  requestAsset(){
+    Swal.fire({
+      title: 'Request this asset to be assigned to you ?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Requested!', '', 'success')
+      } else if (result.isDenied) {
+        return;
+      }
+    })
+    
+    var assignAsset = new assignedAssetDTO();
+    assignAsset.AssetId = this.selectedAssets[0].id; 
+    assignAsset.UserId = this.currentUser.id;
+    this.assignAssetService.addRequest(assignAsset).subscribe(
       (response)=>{
         console.log(response);
-        this.assets = response;
-      },
+      }, 
       (error)=>{
         console.log(error);
       }
-   );
-  });
-
-  this.selectedAssets.splice(0, this.selectedAssets.length);
-  this.onPageSizeChange();
+    )
   }
 
   onSelect(asset: any) {
@@ -146,6 +232,7 @@ returnSelectedAssetsCount():number{
 return this.selectedAssets.length;
 }
 
+//Pagination
 getPaginatedData() {
   var startIndex = (this.page - 1) * +this.pageSize;
   var endIndex = startIndex + +this.pageSize;
@@ -163,6 +250,8 @@ get totalPages(): number {
 onPageSizeChange(){
   this.page = 1;
 }
+
+//End of pagination
 
 //Sort, search and filter methods 
 sortAssetList(field: string):void{
@@ -284,8 +373,6 @@ populateFilters():void{
 }
 
 applyFilters():void{
-  console.log(this.selectedAddedBy);
-  console.log(this.selectedCategory);
   if(this.selectedAddedBy !== "")
   this.assets = this.assets.filter((element) => element.addedBy == this.selectedAddedBy);
   
@@ -307,7 +394,11 @@ applySearch():void{
     asset.id?.toString().includes(searchValue)||
     asset.name?.toString().toLowerCase().includes(searchValue)
     );
-  })
+  });
 }
+
+//End of filter methods 
+
+
 
 }

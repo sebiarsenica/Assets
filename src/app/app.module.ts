@@ -16,6 +16,7 @@ import { AnimatedBackgroundComponent } from './components/animated-background/an
 import { AssetsComponent } from './components/assets/assets.component';
 import { AddAssetComponent } from './modals/add-asset/add-asset.component';
 import { EditAssetComponent } from './modals/edit-asset/edit-asset.component';
+import { AssignAssetComponent } from './components/assign-asset/assign-asset.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { EditAssetComponent } from './modals/edit-asset/edit-asset.component';
     AnimatedBackgroundComponent,
     AssetsComponent,
     AddAssetComponent,
-    EditAssetComponent
+    EditAssetComponent,
+    AssignAssetComponent
   ],
   imports: [
     BrowserModule,

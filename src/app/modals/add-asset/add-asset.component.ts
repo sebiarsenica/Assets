@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { assetDto } from 'src/app/models/assetDto';
 import { AssetService } from 'src/app/services/asset.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-asset',
@@ -22,12 +23,34 @@ export class AddAssetComponent implements OnInit {
   }
 
   addAsset():void{
+    Swal.fire({
+      title: 'Just a second',
+      html: '',
+      customClass: {
+        container: 'sweet-container',
+        popup: 'sweet-popup',
+        title: 'sweet-title',
+      },
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      showCancelButton: false,
+    });
    this.assetToAdd.addedBy = this.currentUsername;
    this.assetService.addAsset(this.assetToAdd).subscribe(
     (response)=>{
       console.log(response);
+      Swal.close();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Asset added!',
+        showConfirmButton: false,
+        timer: 1000
+      })
     }, 
     (error)=>{
+      Swal.close();
       console.log(error);
     }
    );
@@ -46,9 +69,9 @@ export class AddAssetComponent implements OnInit {
           const numberArray: number[] = Array.from(byteArray);
           const chunkSize = 0x8000;
       let result = '';
-for (let i = 0; i < numberArray.length; i += chunkSize) {
-    const subArray = numberArray.slice(i, i + chunkSize);
-    result += String.fromCharCode.apply(null, subArray);
+      for (let i = 0; i < numberArray.length; i += chunkSize) {
+      const subArray = numberArray.slice(i, i + chunkSize);
+     result += String.fromCharCode.apply(null, subArray);
 }
 const base64String: string = btoa(result);
 

@@ -52,7 +52,6 @@ export class UsersComponent implements OnInit {
     (response)=>{
      this.users = response;
      this.unsortedUsers = response;
-     this.formatUserCreateDate();
     },
     (error) => { 
       Swal.fire({
@@ -93,17 +92,6 @@ export class UsersComponent implements OnInit {
 
 
    
-  }
-
-  formatUserCreateDate() { 
-    for (let user of this.users) {
-      const createDate = user.createDate;
-      if (createDate && createDate instanceof Date) { // Check if createDate is a valid Date object
-        const formattedCreateDate = createDate.toLocaleDateString();
-        const newCreateDate = new Date(formattedCreateDate);
-        user.createDate = newCreateDate;
-      }
-    }
   }
 
   onSelect(user: any) {

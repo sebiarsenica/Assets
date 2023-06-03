@@ -9,6 +9,7 @@ import { EditUserComponent } from './modals/edit-user/edit-user.component';
 import { AssetsComponent } from './components/assets/assets.component';
 import { AddAssetComponent } from './modals/add-asset/add-asset.component';
 import { EditAssetComponent } from './modals/edit-asset/edit-asset.component';
+import { AssignAssetComponent } from './components/assign-asset/assign-asset.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'assets', component: AssetsComponent},
   {path: 'addAsset', component: AddAssetComponent},
   {path: 'editAsset', component: EditAssetComponent},
+  {path: 'assignAsset', component: AssignAssetComponent},
   {path: '', redirectTo: 'AppComponent', pathMatch: 'full'}
 ];
 

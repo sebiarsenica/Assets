@@ -1,1 +1,57 @@
-<p>O sa fie grafice aici</p>
+<div class="page-content" >
+    <div class="row mx-auto" >
+        <div class="col-lg-3 col-sm-6 col-12" >
+            <div class="data-widget">
+                <div class="icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <div class="content">
+                  <p class="title">{{userCount}}</p>
+                  <p class="subtitle">Users</p>
+                </div>
+              </div>
+       </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="data-widget">
+                <div class="icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <div class="content">
+                  <p class="title">{{assetsCount}}</p>
+                  <p class="subtitle">Assets</p>
+                </div>
+              </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="data-widget">
+                <div class="icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <div class="content">
+                  <p class="title">{{assignedAssetCount}}</p>
+                  <p class="subtitle">Assigned Assets</p>
+                </div>
+              </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="data-widget">
+                <div class="icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <div class="content">
+                  <p class="title">{{pendingAssignedAssetCount}}</p>
+                  <p class="subtitle">Pending Assigns</p>
+                </div>
+              </div>
+        </div>
+    </div>
+    
+    <div class="row mx-auto">
+        <div class="chart-container">
+            <div class="chart-bar" *ngFor="let item of data" [style.height.%]="getPercentage(item.count)">
+              <span class="bar-label">{{ item.count }}</span>
+            </div>
+          </div>
+          
+    </div>
+</div>

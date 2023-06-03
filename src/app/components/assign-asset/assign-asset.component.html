@@ -1,0 +1,85 @@
+<div class="button-container">
+<button class="btn btn-primary" (click)="Approve()" style="min-width: 100px;min-height: 35px;" [disabled]="returnSelectedAssignAssetsCount() != 1">Approve</button>
+<button class="btn btn-primary" (click)="DeleteAssigns()" style="min-width: 100px;min-height: 35px;" [disabled]="returnSelectedAssignAssetsCount() == 0">Delete</button>
+</div>
+
+<div class="container">
+
+  <div class="containerOne">
+    <input type="text" class="form-control" placeholder="Search..." style="width: 150px;" [(ngModel)]="searchString" (input)="applySearch()">
+    <select [(ngModel)]="selectedUsername" class = "form-select filter">
+      <option value="">Added By</option>
+      <option *ngFor="let username of usernameList" [value]="username">{{username}}</option>
+    </select>
+    <select [(ngModel)]="selectedStatus" class = "form-select filter">
+      <option value="">Status</option>
+      <option *ngFor="let status of statusList" [value]="status">{{status}}</option>
+    </select>
+    <button class="btn btn-primary filter" (click)="applyFilters()">Apply Filters</button>
+    <button class="btn btn-primary filter" style="margin-top: 0.5vw;" (click)="clearFilters()">Clear Filters</button>
+  </div>
+
+  <div class="containerTwo">
+    <div class="row">
+      <div class="col-md-6 d-flex align-items-center">
+        <select [(ngModel)]="pageSize" (change)="onPageSizeChange()" class="form-select" style="width: auto;">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID <a (click) = "sortAssetAssignList('id')">
+            <i class="fa fa-sort"
+              [class.fa-sort-asc]="sortOrderId === 'asc'"
+              [class.fa-sort-desc]="sortOrderId === 'desc'"
+              [class.fa-sort]="sortOrderId === ''"></i>
+          </a></th>
+          <th>Asset Name <a (click) = "sortAssetAssignList('assetName')">
+            <i class="fa fa-sort"
+              [class.fa-sort-asc]="sortOrderAssetName === 'asc'"
+              [class.fa-sort-desc]="sortOrderAssetName === 'desc'"
+              [class.fa-sort]="sortOrderAssetName === ''"></i>
+          </a></th>
+          <th>Username <a (click) = "sortAssetAssignList('username')">
+            <i class="fa fa-sort"
+              [class.fa-sort-asc]="sortOrderUsername === 'asc'"
+              [class.fa-sort-desc]="sortOrderUsername === 'desc'"
+              [class.fa-sort]="sortOrderUsername === ''"></i>
+          </a></th>
+          <th>Assigned Date <a (click) = "sortAssetAssignList('assignedDate')">
+            <i class="fa fa-sort"
+              [class.fa-sort-asc]="sortOrderAssignedDate === 'asc'"
+              [class.fa-sort-desc]="sortOrderAssignedDate === 'desc'"
+              [class.fa-sort]="sortOrderAssignedDate === ''"></i>
+          </a></th>
+          <th>Expire Date <a (click) = "sortAssetAssignList('expireDate')">
+            <i class="fa fa-sort"
+              [class.fa-sort-asc]="sortOrderExpireDate === 'asc'"
+              [class.fa-sort-desc]="sortOrderExpireDate === 'desc'"
+              [class.fa-sort]="sortOrderExpireDate === ''"></i>
+          </a></th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let assignedAsset of getPaginatedData()" class="table-row" [class.selected]="isSelected(assignedAsset)" (click)="onSelect(assignedAsset)">
+          <td>{{assignedAsset.id}}</td>
+          <td>{{assignedAsset.asset.name}}</td>
+          <td>{{assignedAsset.user.username}}</td>
+          <td>{{assignedAsset.assignedDate === '0001-01-01T00:00:00' ? '---' : assignedAsset.assignedDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{assignedAsset.expireDate === '0001-01-01T00:00:00' ? '---' : assignedAsset.expireDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{assignedAsset.status}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-primary" style="height: 35px;"  [disabled]="page == 1" (click)="page = page - 1">Previous</button>
+<button class="btn btn-primary" style="height: 35px;" [disabled]="page == totalPages" (click)="page = page + 1">Next</button>
+  </div>
+
+
+</div>
