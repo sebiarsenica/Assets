@@ -17,6 +17,8 @@ import { AssetsComponent } from './components/assets/assets.component';
 import { AddAssetComponent } from './modals/add-asset/add-asset.component';
 import { EditAssetComponent } from './modals/edit-asset/edit-asset.component';
 import { AssignAssetComponent } from './components/assign-asset/assign-asset.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -38,8 +40,9 @@ import { AssignAssetComponent } from './components/assign-asset/assign-asset.com
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
-   
+    HttpClientModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [CookieService,{ provide: LOCALE_ID, useValue: 'en-US' }],
   bootstrap: [AppComponent]

@@ -4,14 +4,12 @@
   font-family: 'Times New Roman', serif;
   font-weight: bold;
   transition: all 0.3s ease;
-  background: -webkit-linear-gradient(left, rgb(87, 59, 3), rgb(76, 61, 61));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: black;
+  
+  color: rgb(207, 206, 206);
 }
 
 .navbar-brand:hover {
-  color: #4facfe;
+  color: #f0f1f3;
   transform: translateY(-5px);
   
 }
@@ -38,7 +36,7 @@
 
 .navbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(to right, rgb(255, 217, 90) 0%, rgb(255, 217, 90) 100%);
+  background: linear-gradient(to right, rgb(8, 2, 2)0%, rgb(8, 2, 2) 100%);
   background-size: 400% 400%;
   
   animation: animatedGradient 30s ease infinite;
@@ -50,11 +48,11 @@
   font-size: 20px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
-  color: black;
+  color: rgb(207, 206, 206);
 }
 
 .nav-item:hover {
-  background-color: rgba(47, 36, 36, 0.2);
+  background-color: rgb(52, 51, 51);
   transform: translateY(-5px);
 
 }

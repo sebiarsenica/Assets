@@ -3,7 +3,7 @@
         <div class="col-lg-3 col-sm-6 col-12" >
             <div class="data-widget">
                 <div class="icon">
-                  <i class="fas fa-cogs"></i>
+                  <i class="fas fa-users fa-lg"></i>
                 </div>
                 <div class="content">
                   <p class="title">{{userCount}}</p>
@@ -14,7 +14,7 @@
         <div class="col-lg-3 col-sm-6 col-12">
             <div class="data-widget">
                 <div class="icon">
-                  <i class="fas fa-cogs"></i>
+                  <i class="fas fa-memory fa-lg"></i>
                 </div>
                 <div class="content">
                   <p class="title">{{assetsCount}}</p>
@@ -25,7 +25,7 @@
         <div class="col-lg-3 col-sm-6 col-12">
             <div class="data-widget">
                 <div class="icon">
-                  <i class="fas fa-cogs"></i>
+                  <i class="fas fa-clipboard-check fa-lg"></i>
                 </div>
                 <div class="content">
                   <p class="title">{{assignedAssetCount}}</p>
@@ -36,8 +36,8 @@
         <div class="col-lg-3 col-sm-6 col-12">
             <div class="data-widget">
                 <div class="icon">
-                  <i class="fas fa-cogs"></i>
-                </div>
+                  <i class="fas fa-truck-loading fa-lg"></i>
+                </div> 
                 <div class="content">
                   <p class="title">{{pendingAssignedAssetCount}}</p>
                   <p class="subtitle">Pending Assigns</p>
@@ -46,12 +46,19 @@
         </div>
     </div>
     
-    <div class="row mx-auto">
-        <div class="chart-container">
-            <div class="chart-bar" *ngFor="let item of data" [style.height.%]="getPercentage(item.count)">
-              <span class="bar-label">{{ item.count }}</span>
-            </div>
-          </div>
-          
-    </div>
+    <div class="row mx-auto chart-container">
+        <h2 class="chart-title">Assigns Per Month</h2>
+        <div class="chart-wrapper">
+          <ngx-charts-bar-vertical #chart
+            [view]="[1400, 300]"
+            [scheme]="colorScheme"
+            [results]="ChartData"
+            [xAxis]="true"
+            [yAxis]="true"
+            xScaleMin="auto"
+            xScaleMax="auto"
+          ></ngx-charts-bar-vertical>
+        </div>
+      </div>
+      
 </div>

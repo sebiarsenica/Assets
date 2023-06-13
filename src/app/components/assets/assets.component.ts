@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class AssetsComponent implements OnInit {
   currentUser: User = new User();
+  userRoles : string = "";
 
   assets: any[] = [];
   unsortedAssets: any[] = [];
@@ -51,6 +52,7 @@ export class AssetsComponent implements OnInit {
     this.showLoadingAlert();
     this.getAllAssets();
     this.currentUser = this.authService.user;
+    this.userRoles = this.authService.getRoles();
   }
 
   onRequestButtonHover()
@@ -65,8 +67,7 @@ export class AssetsComponent implements OnInit {
 
   getAllAssets(): void{
    this.assetService.getAll().subscribe(
-    (response)=>{ 
-      console.log(response);
+    (response)=>{
       this.assets = response; 
       this.unsortedAssets = response;
       this.populateFilters();

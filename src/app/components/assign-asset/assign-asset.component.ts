@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AssignedAssetService } from 'src/app/services/assigned-asset.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,6 +10,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./assign-asset.component.css']
 })
 export class AssignAssetComponent implements OnInit {
+  UserRoles:string = "";
+
   assignedAssets : any[] = [];
   selectedAssignedAssets: any[] = [];
 
@@ -30,10 +33,11 @@ export class AssignAssetComponent implements OnInit {
 
   searchString = "";
 
-  constructor(private assignAssetService : AssignedAssetService) { }
+  constructor(private assignAssetService : AssignedAssetService, private authService : AuthServiceService) { }
 
   ngOnInit(): void {
     this.getAll();
+    this.UserRoles = this.authService.getRoles();
   }
 
   getAll(){
@@ -42,7 +46,6 @@ export class AssignAssetComponent implements OnInit {
       this.assignedAssets = response; 
       this.unsortedAssignedAssets = response;
       this.populateFilters();
-      console.log(response);
     }, 
     (error)=>{
       console.log(error);
@@ -102,7 +105,8 @@ export class AssignAssetComponent implements OnInit {
         this.selectedAssignedAssets.forEach(a => {
           this.assignAssetService.deleteAssignAsset(a.id).subscribe(
             (response)=>{
-              console.log(response);
+              this.getAll(); 
+              this.page = 1;
             }, 
             (error)=>{
               console.log(error);

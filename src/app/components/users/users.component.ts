@@ -22,6 +22,9 @@ export class UsersComponent implements OnInit {
   sortOrderFullName : string = ""; 
   sortOrderEmail : string = "";
 
+  page: number = 1; 
+  pageSize: number = 5;
+
   constructor(private userService: UserService, private router: Router, private authService: AuthServiceService) { }
 
   ngOnInit(): void {
@@ -74,7 +77,7 @@ export class UsersComponent implements OnInit {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Conturile au fost sterse cu succes!',
+            title: 'Accounts were deleted!',
             showConfirmButton: false,
             timer: 900
           })
@@ -189,7 +192,28 @@ if(field === 'email'){
   }
 }
 
-
 }
+
+//Pagination
+getPaginatedData() {
+  var startIndex = (this.page - 1) * +this.pageSize;
+  var endIndex = startIndex + +this.pageSize;
+  var currentPageItems = this.users.slice(startIndex, endIndex);
+
+  // If the current page has fewer items than the page size, use its length to calculate the start index
+  var firstItemIndex = Math.min(startIndex, this.users.length - currentPageItems.length);
+  return this.users.slice(firstItemIndex, firstItemIndex + +this.pageSize);
+}
+
+get totalPages(): number {
+  return Math.ceil(this.users.length / this.pageSize);
+}
+
+onPageSizeChange(){
+  this.page = 1;
+}
+
+//End of pagination
+
 
 }

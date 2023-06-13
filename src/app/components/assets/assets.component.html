@@ -1,7 +1,7 @@
 <div class="button-container">
-  <button class = "btn btn-primary"  (click) = "addAsset()" style="min-width: 100px;min-height: 35px;">Add <i class="fas fa-memory"></i></button>
-  <button class = "btn btn-primary" [disabled]="returnSelectedAssetsCount() != 1"  (click)="editAsset()" style="min-width: 100px;min-height: 35px;">Edit <i class="fa-solid fa-computer"></i></button>
-  <button class = "btn btn-primary" [disabled]="returnSelectedAssetsCount() ==  0 " (click)="deleteAsset()" style="min-width: 100px;min-height: 35px;"> Delete <i class="fas fa-trash"></i> </button>
+  <button class = "btn btn-primary"  *ngIf="userRoles.includes('CanAddAsset')" (click) = "addAsset()" style="min-width: 100px;min-height: 35px;">Add <i class="fas fa-memory"></i></button>
+  <button class = "btn btn-primary" *ngIf="userRoles.includes('CanEditAsset')" [disabled]="returnSelectedAssetsCount() != 1"  (click)="editAsset()" style="min-width: 100px;min-height: 35px;">Edit <i class="fa-solid fa-computer"></i></button>
+  <button class = "btn btn-primary" *ngIf="userRoles.includes('CanDeleteAsset')" [disabled]="returnSelectedAssetsCount() ==  0 " (click)="deleteAsset()" style="min-width: 100px;min-height: 35px;"> Delete <i class="fas fa-trash"></i> </button>
   <button class = "btn btn-primary" [disabled]="returnSelectedAssetsCount() != 1" (click)="requestAsset()" (mouseenter)="onRequestButtonHover()" (mouseleave)="onRequestButtonLeave()" style="min-width: 120px;min-height: 35px;">{{requestButtonText}} <i class="{{requestButtonClass}}"></i></button>
 </div>
 

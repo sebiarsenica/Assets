@@ -21,7 +21,9 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "typeRoots": ["node_modules/@types", "src/typings"],
+    "types": ["node", "d3-shape", "d3-scale", "d3-selection"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

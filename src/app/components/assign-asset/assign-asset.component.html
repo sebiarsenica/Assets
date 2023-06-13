@@ -1,6 +1,6 @@
 <div class="button-container">
-<button class="btn btn-primary" (click)="Approve()" style="min-width: 100px;min-height: 35px;" [disabled]="returnSelectedAssignAssetsCount() != 1">Approve</button>
-<button class="btn btn-primary" (click)="DeleteAssigns()" style="min-width: 100px;min-height: 35px;" [disabled]="returnSelectedAssignAssetsCount() == 0">Delete</button>
+<button class="btn btn-primary" *ngIf="UserRoles.includes('CanApproveAssigns')" (click)="Approve()" style="min-width: 100px;min-height: 35px;" [disabled]="returnSelectedAssignAssetsCount() != 1">Approve</button>
+<button class="btn btn-primary" *ngIf="UserRoles.includes('CanDeleteAssigns')" (click)="DeleteAssigns()" style="min-width: 100px;min-height: 35px;" [disabled]="returnSelectedAssignAssetsCount() == 0">Delete</button>
 </div>
 
 <div class="container">

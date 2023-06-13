@@ -31,16 +31,16 @@
     <div class="containerTwo" *ngIf = "currentUserRoles.includes('CanManageRoles')">
       <div class="row">
         <div class="col-md-5">
-          <h4>Avaible Roles</h4>
+          <h4>Available Roles</h4>
           <ul class="list-group" >
             <li  *ngFor="let role of availableRoles" class="list-group-item" [class.selected]="isRoleSelected(role)" (click)="onRoleSelect(role)">{{role.roleName}}</li>
           </ul>
         </div>
         <div class="col-md-2">
           <div class="text-center">
-            <button class="btn btn-success mt-5" (click)="addRole()">Add Role</button>
-            <button class="btn btn-danger mt-3" (click)="removeRole()">Remove Role</button>
-            <button class="btn btn-success mt-5" *ngIf = "currentUserRoles.includes('CanSaveRoles')" (click)="saveRole()">Save </button>
+            <button class="btn btn-success mt-5 btn-background-color hover" (click)="addRole()"><i class="fas fa-long-arrow-right fa-lg"></i></button>
+            <button class="btn btn-danger mt-3 btn-background-color2 hover" (click)="removeRole()"><i class="fas fa-long-arrow-right fa-rotate-180 fa-lg"></i></button>
+            <button class="btn btn-success mt-5 btn-background-color hover" *ngIf = "currentUserRoles.includes('CanSaveRoles')" (click)="saveRole()">Save </button>
           </div>
         </div>
         <div class="col-md-5">

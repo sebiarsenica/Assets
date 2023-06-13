@@ -86,7 +86,7 @@ selectedUserRoles:any[] = [];
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Cont editat cu succes!',
+          title: 'Changes saved successfully!',
           showConfirmButton: false,
           timer: 900,
           background: '#f8f9fa',
@@ -96,7 +96,7 @@ selectedUserRoles:any[] = [];
       (error) => {
         Swal.fire({
           icon: 'error',
-          title: 'Eroare la editare'
+          title: 'Error!'
         })
         console.log("Error in editing user : " + error);
       }
@@ -182,16 +182,26 @@ selectedUserRoles:any[] = [];
        this.tempARD.UserId = rolesToBeAdded[i].user.id;
        this.assignedRoleService.AssignRolesToUser(this.tempARD).subscribe(
         (response)=> {
-          console.log(response);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Roles saved!',
+            showConfirmButton: false,
+            timer: 900,
+            background: '#f8f9fa',
+            backdrop: 'transparent'
+          })
         }, 
         (error)=>{
           console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error in saving roles!'
+          })
         }
        )
        this.tempARD = new assignRoleDto();
      }
-
-    location.reload();
   
   }
 
