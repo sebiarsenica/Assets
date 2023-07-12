@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { assetDto } from 'src/app/models/assetDto';
 import { AssetService } from 'src/app/services/asset.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
@@ -12,9 +13,9 @@ import Swal from 'sweetalert2';
 export class AddAssetComponent implements OnInit {
   currentUsername : string = "";
   assetToAdd : assetDto = new assetDto;
-  categories: string[] = ['Computers','Phones','Writing and Printing'];
+  categories: string[] = ['Desktop','Phones','Writing and Printing','Laptop','Monitors'];
 
-  constructor(private assetService: AssetService, private authService : AuthServiceService) { }
+  constructor(private assetService: AssetService, private authService : AuthServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUsername = this.authService.getUserNameFromCookie();
@@ -48,6 +49,7 @@ export class AddAssetComponent implements OnInit {
         showConfirmButton: false,
         timer: 1000
       })
+      this.router.navigate(['/assets']);
     }, 
     (error)=>{
       Swal.close();

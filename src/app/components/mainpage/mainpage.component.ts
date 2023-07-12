@@ -14,6 +14,8 @@ export class MainpageComponent implements OnInit {
   assignedAssetCount : number = 0; 
   pendingAssignedAssetCount : number = 0;
 
+  selectValue : string = "";
+
   data = [
     { name: 'January', value: 0 },
     { name: 'February', value: 0 },
@@ -51,11 +53,15 @@ export class MainpageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCounts();
-    this.getMonthCounts();
+    this.getCategoryCounts();
   }
 
-  getMonthCounts(): void {
-    this.statisticsService.getMonthsCount().subscribe(
+  ChangeChartData():void{
+    this.getCategoryCounts();
+  }
+
+  getCategoryCounts(): void {
+    this.statisticsService.getCategoryCount(this.selectValue).subscribe(
       (response) => {
         console.log(response);
         this.ChartData[0].value = parseInt(response.jan);

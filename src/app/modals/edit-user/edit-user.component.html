@@ -20,7 +20,7 @@
                 <label for="password" class="form-label">Password:</label>
                 <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password">
               </div>
-              <button type="submit" class="btn btn-primary submit  btn-hover-effect"  (click)="editUser()">Save</button>
+              <button type="submit" class="btn btn-primary submit  btn-hover-effect"  [disabled]="!isFormValid()"  (click)="editUser()">Save</button>
             </form>
           </div>
         </div>
@@ -31,7 +31,7 @@
     <div class="containerTwo" *ngIf = "currentUserRoles.includes('CanManageRoles')">
       <div class="row">
         <div class="col-md-5">
-          <h4>Available Roles</h4>
+          <h4>Available Privileges</h4>
           <ul class="list-group" >
             <li  *ngFor="let role of availableRoles" class="list-group-item" [class.selected]="isRoleSelected(role)" (click)="onRoleSelect(role)">{{role.roleName}}</li>
           </ul>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="col-md-5">
-          <h4>User Roles</h4>
+          <h4>User Privileges</h4>
           <ul class="list-group" >
             <li *ngFor="let role of userRoles" class="list-group-item" [class.selected]="isUserRoleSelected(role)" (click)="onUserRoleSelect(role)">{{role.role.roleName}}</li>
           </ul>

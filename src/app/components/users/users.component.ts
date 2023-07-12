@@ -67,13 +67,20 @@ export class UsersComponent implements OnInit {
   }
  deleteUser(){
     let nr = 0; 
-    console.log("intra aici");
-    for(var i = 0 ; i < this.selectedUsers.length; i++)
-    this.userService.deleteUser(this.selectedUsers[i].id).subscribe(
-      (response)=>{
-        this.users = response; 
+
+    Swal.fire({
+      title: 'Are you sure you want to delete?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        for(var i = 0 ; i < this.selectedUsers.length; i++)
+          this.userService.deleteUser(this.selectedUsers[i].id).subscribe(
+         (response)=>{
+          this.users = response; 
          nr++;
-        if(nr === this.selectedUsers.length-1) {
+         if(nr === this.selectedUsers.length-1) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -92,9 +99,11 @@ export class UsersComponent implements OnInit {
         })
       }
     )
-
-
-   
+      this.selectedUsers = [];
+      } else if (result.isDenied) {
+        
+      }
+    })
   }
 
   onSelect(user: any) {

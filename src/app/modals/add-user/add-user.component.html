@@ -1,25 +1,32 @@
 <div class="container d-flex justify-content-center align-items-center">
-    <div class="card">
-      <div class="card-body">
+  <div class="card">
+    <div class="card-body">
         <form>
           <div class="form-group">
             <label for="username" class="form-label">Username:</label>
-            <input [(ngModel)]="user.username" name="username" type="text" class="form-control" id="username">
+            <input [(ngModel)]="user.username" name="username" type="text" class="form-control" id="username" (focus)="showUsernameInfo = true">
+            <p class="pCond" *ngIf="showUsernameInfo && !isUsernameValid()">Username should have only letters and numbers</p>
           </div>
           <div class="form-group rest">
             <label for="fullname" class="form-label">Full Name:</label>
-            <input [(ngModel)]="user.fullname" name="fullname" type="text" class="form-control" id="fullname">
+            <input [(ngModel)]="user.fullname" name="fullname" type="text" class="form-control" id="fullname" (focus)="showFullNameInfo = true">
+            <p class="pCond" *ngIf="showFullNameInfo && !isFullNameValid()">Should be at least 2 words separated by 1 space</p>
           </div>
           <div class="form-group rest">
             <label for="email" class="form-label">Email:</label>
-            <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="email">
+            <input [(ngModel)]="user.email" name="email" type="email" class="form-control" id="email" (focus)="showEmailInfo = true">
+            <p class="pCond" *ngIf="showEmailInfo && !isEmailValid()">Email needs to contain a @ and a point</p>
           </div>
           <div class="form-group rest">
             <label for="password" class="form-label">Password:</label>
             <input [(ngModel)]="user.password" name="password" type="password" class="form-control" id="password">
           </div>
-          <button type="submit" class="btn btn-primary submit  btn-hover-effect" [disabled]="!user.username || !user.fullname || !user.email || !user.password" (click)="addUser()">Submit</button>
+          <div class="buttons-container d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary submit btn-hover-effect" [disabled]="!isFormValid()" (click)="addUser()">Submit</button>
+            <button class="btn btn-primary submit btn-hover-effect" (click)="Cancel()">Cancel</button>
+          </div>
         </form>
+          
       </div>
     </div>
   </div>

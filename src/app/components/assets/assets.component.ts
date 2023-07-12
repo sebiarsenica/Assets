@@ -68,6 +68,8 @@ export class AssetsComponent implements OnInit {
   getAllAssets(): void{
    this.assetService.getAll().subscribe(
     (response)=>{
+      if(response.length === 0 )
+      {Swal.close(); return;}
       this.assets = response; 
       this.unsortedAssets = response;
       this.populateFilters();
@@ -76,6 +78,7 @@ export class AssetsComponent implements OnInit {
     },
     (error)=>{
       console.log(error);
+      Swal.close();
     }
    )
   }
@@ -102,12 +105,6 @@ export class AssetsComponent implements OnInit {
   }
 
   async editAsset(){
-   // let navigationsExtras: NavigationExtras = { 
-     // state: { 
-       // assets: this.selectedAssets
-      //}
-    //};
-    //this.router.navigate(['/editAsset'], navigationsExtras);
     const quantity = this.selectedAssets[0].quantity; 
     const name = this.selectedAssets[0].name;
     const { value: formValue } = await Swal.fire({
@@ -136,7 +133,6 @@ export class AssetsComponent implements OnInit {
     });
   
     if (formValue && 'name' in formValue && 'quantity' in formValue) {
-      // The formValues object is defined and has 'name' and 'quantity' properties
       const name = formValue.name;
       const quantity = formValue.quantity;
       console.log(`Name: ${name}, Quantity: ${quantity}`);
@@ -151,7 +147,6 @@ export class AssetsComponent implements OnInit {
         }
       );
     } else {
-      // The formValues object is undefined or doesn't have 'name' and 'quantity' properties
     }
   }
 
@@ -162,7 +157,6 @@ export class AssetsComponent implements OnInit {
       confirmButtonText: 'Yes',
       denyButtonText: `No`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.selectedAssets.forEach((as)=>{
           this.assetService.deleteAsset(as.id!).subscribe(
@@ -182,10 +176,6 @@ export class AssetsComponent implements OnInit {
         
       }
     })
-    
-  
-
-  
   }
 
   requestAsset(){
@@ -229,8 +219,14 @@ isSelected(asset: any){
       return this.selectedAssets.indexOf(asset) >= 0;
 }
 
+returnSelectedAssetsCondition():number{
+  if(this.selectedAssets.length == 1 && this.selectedAssets[0].quantity! > 0)
+  return 1; 
+  else return 0;
+}
+
 returnSelectedAssetsCount():number{
-return this.selectedAssets.length;
+  return this.selectedAssets.length;
 }
 
 //Pagination
@@ -365,6 +361,7 @@ clearFilters():void{
 }
 
 populateFilters():void{
+  console.log(this.assets);
   this.assets.forEach(element => {
     if(this.addedByList.includes(element.addedBy)== false)
     this.addedByList.push(element.addedBy);

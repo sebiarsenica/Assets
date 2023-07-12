@@ -29,4 +29,9 @@ export class AssignedAssetService {
   public deleteAssignAsset(id: number):Observable<string>{
     return this.http.delete<string>(environment.apiUrl + '/'+this.url+'/'+id)
   }
+
+  public changeStatusToRejected(id: number): Observable<string> {
+    return this.http.put<string>(environment.apiUrl + '/' + this.url + '/' + id, {});
+  }
+  
 }

@@ -47,18 +47,34 @@
     </div>
     
     <div class="row mx-auto chart-container">
-        <h2 class="chart-title">Assigns Per Month</h2>
-        <div class="chart-wrapper">
-          <ngx-charts-bar-vertical #chart
-            [view]="[1400, 300]"
-            [scheme]="colorScheme"
-            [results]="ChartData"
-            [xAxis]="true"
-            [yAxis]="true"
-            xScaleMin="auto"
-            xScaleMax="auto"
-          ></ngx-charts-bar-vertical>
-        </div>
+      <div class="chart-title-wrapper">
+        <h2 class="chart-title">Category Assigns Per Month</h2>
       </div>
+    
+      <div class="chart-wrapper">
+        <div class="select-wrapper">
+          <select (change)="ChangeChartData()" [(ngModel)]="selectValue" class="form-select" aria-label="Select an option">
+            <option value="Desktop">Desktop</option>
+            <option value="Phones">Phones</option>
+            <option value="Writing and Printing">Writing and Printing</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Monitors">Monitors</option>
+          </select>
+        </div>
+        <ngx-charts-bar-vertical #chart
+          [view]="[1400, 300]"
+          [scheme]="colorScheme"
+          [results]="ChartData"
+          [xAxis]="true"
+          [yAxis]="true"
+          xScaleMin="auto"
+          xScaleMax="auto"
+        ></ngx-charts-bar-vertical>
+      </div>
+    </div>
+    
+    
+    
+    
       
 </div>

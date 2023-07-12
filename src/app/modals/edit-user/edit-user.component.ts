@@ -36,7 +36,7 @@ selectedUserRoles:any[] = [];
 
  
 
-  constructor(private route: ActivatedRoute, private userService : UserService, private roleService:RoleService,private assignedRoleService: AssignedRoleService, private router: Router) { }
+  constructor( private userService : UserService, private roleService:RoleService,private assignedRoleService: AssignedRoleService, private authService : AuthServiceService) { }
 
   ngOnInit(): void {
     this.selectedUsers = history.state.user;
@@ -103,6 +103,19 @@ selectedUserRoles:any[] = [];
     )
   }
 
+  isFormValid(): boolean {
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    const fullnameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)+$/;
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+    const isUsernameValid = usernameRegex.test(this.selectedUser.username ?? "");
+    const isFullNameValid = fullnameRegex.test(this.selectedUser.fullName ?? "");
+    const isEmailValid = emailRegex.test(this.selectedUser.email ?? "");
+
+    return isUsernameValid && isFullNameValid && isEmailValid;
+  }
+
+
   onRoleSelect(role: any){
     const index = this.selectedRoles.indexOf(role); 
     if(index >= 0){ 
@@ -165,7 +178,15 @@ selectedUserRoles:any[] = [];
        this.tempARD.UserId = rolesToBeDeleted[i].user.id;
        this.assignedRoleService.DeleteAssignRoleToUser(this.tempARD).subscribe(
         (response)=>{
-          console.log(response);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Privileges saved!',
+            showConfirmButton: false,
+            timer: 900,
+            background: '#f8f9fa',
+            backdrop: 'transparent'
+          })
         },
         (error)=>{
           console.log(error);
@@ -185,7 +206,7 @@ selectedUserRoles:any[] = [];
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Roles saved!',
+            title: 'Privileges saved!',
             showConfirmButton: false,
             timer: 900,
             background: '#f8f9fa',
@@ -196,15 +217,18 @@ selectedUserRoles:any[] = [];
           console.log(error);
           Swal.fire({
             icon: 'error',
-            title: 'Error in saving roles!'
+            title: 'Error in saving privileges!'
           })
         }
        )
        this.tempARD = new assignRoleDto();
+       
      }
+     this.authService.getRolesForUser();
   
   }
 
+ 
  
 
 }

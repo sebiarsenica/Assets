@@ -38,13 +38,23 @@ export class AssignAssetComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.UserRoles = this.authService.getRoles();
+    console.log(this.UserRoles.includes('CanViewAllAssigns'));
+    console.log(this.authService.user);
   }
 
   getAll(){
    this.assignAssetService.getAll().subscribe(
     (response)=> { 
+      if(this.UserRoles.includes('CanViewAllAssigns') == false)
+      { 
+        const newAA = response.filter((element)=> element.user?.username === this.authService.user.username);
+        this.assignedAssets = newAA; 
+        this.unsortedAssignedAssets = newAA;
+      }else 
+      {
       this.assignedAssets = response; 
       this.unsortedAssignedAssets = response;
+      }
       this.populateFilters();
     }, 
     (error)=>{
@@ -81,6 +91,20 @@ export class AssignAssetComponent implements OnInit {
     const date = formValue.date; 
     const status = formValue.status;
     
+    if(status === "Rejected") {
+      console.log(this.selectedAssignedAssets[0].id);
+      this.assignAssetService.changeStatusToRejected(this.selectedAssignedAssets[0].id).subscribe(
+        (response) => {
+         console.log(response);
+         Swal.fire('Rejected!', '', 'success')
+         this.getAll();
+        }, 
+        (error) =>{ 
+          console.log(error);
+        }
+      )
+      return;}
+
     this.selectedAssignedAssets[0].expireDate = date; 
     this.selectedAssignedAssets[0].status = status;
 
@@ -89,6 +113,12 @@ export class AssignAssetComponent implements OnInit {
        this.selectedAssignedAssets[0].assignedDate = response.assignedDate;
       },(error)=>{
         console.log(error);
+        if(error.error === "The asset is no longer avaible")
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'This asset is no longer avaible!'
+        })
       }
     );
   }

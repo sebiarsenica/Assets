@@ -12,6 +12,7 @@
  transition: 0.5s all ease-in-out;
  background-color: rgb(115, 187, 201);
  color: black;
+ align-self: center;
 }
 
 .submit:hover{
@@ -45,6 +46,29 @@
     margin-bottom: 0.5rem;
   }
   
+  .pCond {
+    color: rgb(255, 2, 2);
+    font-size: medium;
+    margin-top: 5px;
+  }
   
+
+  .pCond-green{
+    color: transparent;
+    font-size: medium;
+    margin-top: 0px;
+  }
+  
+  .buttons-container {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .buttons-container button {
+    margin: 0 0.5rem;
+    flex-grow: 1;
+  }
   
   

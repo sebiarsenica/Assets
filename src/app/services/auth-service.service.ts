@@ -25,6 +25,7 @@ export class AuthServiceService {
      this.cookieService.set('acces-token', JSON.stringify(response), expireDate);
      this.cookieService.set('username',username,expireDate);
      this.getUser();
+     this.roles = "";
   }
 
   logOut(): any{ 

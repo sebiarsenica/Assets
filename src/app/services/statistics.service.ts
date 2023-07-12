@@ -15,7 +15,7 @@ export class StatisticsService {
     return this.http.get<any>(environment.apiUrl + '/' + this.url +'/counts');
   }
 
-  public getMonthsCount():Observable<any>{
-    return this.http.get<any>(environment.apiUrl + '/' + this.url +'/months');
+  public getCategoryCount(cat : string):Observable<any>{
+    return this.http.get<any>(environment.apiUrl + '/' + this.url +'/category/'+cat);
   }
 }

@@ -8,7 +8,7 @@
   <div class="containerOne">
     <input type="text" class="form-control" placeholder="Search..." style="width: 150px;" [(ngModel)]="searchString" (input)="applySearch()">
     <select [(ngModel)]="selectedUsername" class = "form-select filter">
-      <option value="">Added By</option>
+      <option value="">Username</option>
       <option *ngFor="let username of usernameList" [value]="username">{{username}}</option>
     </select>
     <select [(ngModel)]="selectedStatus" class = "form-select filter">

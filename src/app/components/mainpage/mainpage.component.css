@@ -59,4 +59,25 @@
 }
 
 
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-title-wrapper {
+  margin-bottom: 10px; /* Adjust the margin as per your preference */
+}
+
+.chart-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.select-wrapper {
+  margin-right: 10px; /* Adjust the margin as per your preference */
+}
+
+
+
   

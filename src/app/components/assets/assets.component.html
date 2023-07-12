@@ -2,7 +2,7 @@
   <button class = "btn btn-primary"  *ngIf="userRoles.includes('CanAddAsset')" (click) = "addAsset()" style="min-width: 100px;min-height: 35px;">Add <i class="fas fa-memory"></i></button>
   <button class = "btn btn-primary" *ngIf="userRoles.includes('CanEditAsset')" [disabled]="returnSelectedAssetsCount() != 1"  (click)="editAsset()" style="min-width: 100px;min-height: 35px;">Edit <i class="fa-solid fa-computer"></i></button>
   <button class = "btn btn-primary" *ngIf="userRoles.includes('CanDeleteAsset')" [disabled]="returnSelectedAssetsCount() ==  0 " (click)="deleteAsset()" style="min-width: 100px;min-height: 35px;"> Delete <i class="fas fa-trash"></i> </button>
-  <button class = "btn btn-primary" [disabled]="returnSelectedAssetsCount() != 1" (click)="requestAsset()" (mouseenter)="onRequestButtonHover()" (mouseleave)="onRequestButtonLeave()" style="min-width: 120px;min-height: 35px;">{{requestButtonText}} <i class="{{requestButtonClass}}"></i></button>
+  <button class = "btn btn-primary" [disabled]="returnSelectedAssetsCondition() != 1" (click)="requestAsset()" (mouseenter)="onRequestButtonHover()" (mouseleave)="onRequestButtonLeave()" style="min-width: 120px;min-height: 35px;">{{requestButtonText}} <i class="{{requestButtonClass}}"></i></button>
 </div>
 
 <div class="container">
@@ -78,7 +78,7 @@
     <tbody>
       <tr *ngFor="let asset of getPaginatedData()" class="table-row" [class.selected]="isSelected(asset)" (click)="onSelect(asset)">
         <td>{{asset.id}}</td>
-        <td><img [src]="sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + asset.image)" width="40px" height="40px" />    {{asset.name}}</td>
+        <td><img [src]="sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + asset.image)" width="40px" height="40px" style="background: transparent;"/>    {{asset.name}}</td>
         <td>{{asset.sku}}</td>
         <td>{{asset.category}}</td>
         <td>{{asset.quantity}}</td>
